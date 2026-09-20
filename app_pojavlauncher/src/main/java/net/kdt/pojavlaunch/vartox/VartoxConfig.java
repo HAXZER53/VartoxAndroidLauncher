@@ -1,11 +1,11 @@
-﻿package net.kdt.pojavlaunch.VXeno;
+package net.kdt.pojavlaunch.vartox;
 
 import android.util.Log;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class VXenoConfig {
+public class VartoxConfig {
     public static final String TAG = "VXeno";
     public static final String LAUNCH_SERVER_HTTP = "http://haxzer.online:9274";
     public static final String LAUNCH_SERVER_WS = "ws://haxzer.online:9274/api";
