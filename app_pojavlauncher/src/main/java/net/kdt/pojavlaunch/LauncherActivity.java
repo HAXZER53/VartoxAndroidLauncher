@@ -144,11 +144,30 @@ public class LauncherActivity extends BaseActivity {
             }
         }
 
-        new MinecraftDownloader().start(
-                this,
-                mcVersion,
-                normalizedVersionId,
-                new ContextAwareDoneListener(this, normalizedVersionId)
+        // Run GravitLauncher UpdatePhase from LaunchServer
+        java.io.File clientDir = new java.io.File(Tools.DIR_GAME_NEW);
+        net.kdt.pojavlaunch.vartox.GravitUpdateService.syncProfile(
+                selectedProfile,
+                clientDir,
+                null,
+                new net.kdt.pojavlaunch.vartox.GravitUpdateService.SyncProgress() {
+                    @Override
+                    public void onProgress(String status, int current, int total) {
+                        Tools.runOnUiThread(() -> Toast.makeText(LauncherActivity.this, status, Toast.LENGTH_SHORT).show());
+                    }
+
+                    @Override
+                    public void onFinished(boolean success, String error) {
+                        Tools.runOnUiThread(() -> {
+                            new MinecraftDownloader().start(
+                                    LauncherActivity.this,
+                                    mcVersion,
+                                    normalizedVersionId,
+                                    new ContextAwareDoneListener(LauncherActivity.this, normalizedVersionId)
+                            );
+                        });
+                    }
+                }
         );
         return false;
     };

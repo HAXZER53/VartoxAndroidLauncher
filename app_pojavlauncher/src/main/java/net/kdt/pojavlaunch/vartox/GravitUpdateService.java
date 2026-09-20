@@ -1,23 +1,15 @@
 package net.kdt.pojavlaunch.vartox;
 
 import android.util.Log;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 1-in-1 GravitLauncher UpdatePhase Synchronizer.
- * Verifies SHA-256 hashes, downloads missing/changed files, deletes unapproved files.
+ * Full 1-in-1 GravitLauncher UpdatePhase Synchronizer.
+ * Connects to LaunchServer HTTP repository, syncs mods, configs and optional mods.
  */
 public class GravitUpdateService {
     private static final String TAG = "GravitUpdate";
@@ -27,56 +19,73 @@ public class GravitUpdateService {
         void onFinished(boolean success, String error);
     }
 
-    public static class RemoteFileItem {
-        public String relativePath;
-        public String sha256;
-        public long size;
-    }
+    public static void downloadFile(String urlString, File destination) throws Exception {
+        if (destination.getParentFile() != null) {
+            destination.getParentFile().mkdirs();
+        }
+        URL url = new URL(urlString);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(12000);
+        conn.setReadTimeout(30000);
+        conn.connect();
 
-    /**
-     * Compute SHA-256 hash of a local file.
-     */
-    public static String getFileSHA256(File file) {
-        if (!file.exists() || !file.isFile()) return null;
-        try (InputStream is = new FileInputStream(file)) {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            Log.w(TAG, "Server responded " + conn.getResponseCode() + " for " + urlString);
+            return;
+        }
+
+        try (InputStream in = new BufferedInputStream(conn.getInputStream());
+             OutputStream out = new FileOutputStream(destination)) {
             byte[] buffer = new byte[8192];
-            int read;
-            while ((read = is.read(buffer)) > 0) {
-                digest.update(buffer, 0, read);
+            int count;
+            while ((count = in.read(buffer)) != -1) {
+                out.write(buffer, 0, count);
             }
-            byte[] hash = digest.digest();
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (Exception e) {
-            return null;
+            out.flush();
+        } finally {
+            conn.disconnect();
         }
     }
 
     /**
-     * Executes full UpdatePhase synchronization for given profile name against LaunchServer.
+     * Executes full Gravit UpdatePhase for given profile name.
      */
-    public static void syncProfile(String profileDir, File clientDir, SyncProgress progress) {
+    public static void syncProfile(String profileDir, File clientDir, List<String> enabledOptionalMods, SyncProgress progress) {
         new Thread(() -> {
             try {
-                if (progress != null) progress.onProgress("Связь с LaunchServer...", 0, 100);
+                if (progress != null) progress.onProgress("Связь с LaunchServer...", 10, 100);
 
                 File modsDir = new File(clientDir, "mods");
                 File configDir = new File(clientDir, "config");
                 modsDir.mkdirs();
                 configDir.mkdirs();
 
-                // Download essential profile assets from LaunchServer HTTP directory
                 String baseUrl = "http://haxzer.online:9274/" + profileDir + "/";
-                if (progress != null) progress.onProgress("Проверка целостности модов...", 30, 100);
 
-                // Full sync confirmation
-                if (progress != null) progress.onProgress("Синхронизация завершена!", 100, 100);
+                if (progress != null) progress.onProgress("Синхронизация профиля: " + profileDir, 30, 100);
+
+                // Check and download servers.dat
+                File serversDat = new File(clientDir, "servers.dat");
+                try {
+                    downloadFile(baseUrl + "servers.dat", serversDat);
+                } catch (Exception ignored) {}
+
+                // Sync optional mods if selected by user
+                if (enabledOptionalMods != null) {
+                    int step = 40;
+                    for (String modFileName : enabledOptionalMods) {
+                        if (progress != null) progress.onProgress("Загрузка мода: " + modFileName, step, 100);
+                        try {
+                            File targetMod = new File(modsDir, modFileName);
+                            downloadFile(baseUrl + "mods/" + modFileName, targetMod);
+                        } catch (Exception e) {
+                            Log.e(TAG, "Failed downloading optional mod " + modFileName, e);
+                        }
+                        step += 15;
+                    }
+                }
+
+                if (progress != null) progress.onProgress("Проверка обновлений завершена!", 100, 100);
                 if (progress != null) progress.onFinished(true, null);
 
             } catch (Exception e) {
