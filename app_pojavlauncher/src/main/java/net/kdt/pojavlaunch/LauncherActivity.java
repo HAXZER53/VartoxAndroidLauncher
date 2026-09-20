@@ -234,6 +234,11 @@ public class LauncherActivity extends BaseActivity {
         super.onResume();
         ContextExecutor.setActivity(this);
         mInstallTracker.attach();
+
+        // Enforce VXeno login screen if no user is logged in
+        if (mAccountSpinner != null && mAccountSpinner.getSelectedAccount() == null) {
+            Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
+        }
     }
 
     @Override

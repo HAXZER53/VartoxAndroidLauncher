@@ -58,7 +58,7 @@ public class MainMenuFragment extends Fragment {
             runInstallerWithConfirmation(true);
             return true;
         });
-        mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
+        mEditProfileButton.setOnClickListener(v -> new VXenoOptionalModsDialog().show(getParentFragmentManager(), VXenoOptionalModsDialog.TAG));
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 

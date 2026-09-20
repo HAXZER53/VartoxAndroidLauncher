@@ -29,11 +29,18 @@ public class LauncherProfiles {
             }
         }
 
-        // Fill with default
+        // Fill with default VXeno profiles
         if (mainProfileJson == null) mainProfileJson = new MinecraftLauncherProfiles();
         if (mainProfileJson.profiles == null) mainProfileJson.profiles = new HashMap<>();
-        if (mainProfileJson.profiles.size() == 0)
-            mainProfileJson.profiles.put(UUID.randomUUID().toString(), MinecraftProfile.getDefaultProfile());
+        if (mainProfileJson.profiles.size() == 0) {
+            MinecraftProfile newEra = MinecraftProfile.getDefaultProfile();
+            mainProfileJson.profiles.put("NewEra", newEra);
+
+            MinecraftProfile hiTech = new MinecraftProfile();
+            hiTech.name = "HiTech";
+            hiTech.lastVersionId = "1.21.1";
+            mainProfileJson.profiles.put("HiTech", hiTech);
+        }
 
         // Normalize profile names from mod installers
         if(normalizeProfileIds(mainProfileJson)){

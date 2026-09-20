@@ -1,16 +1,16 @@
-package net.kdt.pojavlaunch.vartox;
+﻿package net.kdt.pojavlaunch.VXeno;
 
 import android.util.Log;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class VartoxConfig {
-    public static final String TAG = "VartoxMC";
+public class VXenoConfig {
+    public static final String TAG = "VXeno";
     public static final String LAUNCH_SERVER_HTTP = "http://haxzer.online:9274";
     public static final String LAUNCH_SERVER_WS = "ws://haxzer.online:9274/api";
-    public static final String SKIN_API_URL = "http://vartox.online:3000/api/skin?username=%username%";
-    public static final String DEFAULT_SERVER_IP = "vartox.online";
+    public static final String SKIN_API_URL = "http://VXeno.online:3000/api/skin?username=%username%";
+    public static final String DEFAULT_SERVER_IP = "VXeno.online";
     public static final int DEFAULT_SERVER_PORT = 25565;
 
     public static boolean downloadServerFile(String remoteRelativePath, File destination) {
