@@ -1,4 +1,4 @@
-﻿package net.kdt.pojavlaunch.vartox;
+package net.kdt.pojavlaunch.vartox;
 
 import android.util.Log;
 import java.io.*;
