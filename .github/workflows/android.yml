@@ -79,6 +79,8 @@ jobs:
 
       - name: Build JRE JAR files
         run: |
+          chmod +x ./scripts/*.sh
+          chmod +x ./gradlew
           ./scripts/languagelist_updater.sh
 
           mkdir out
