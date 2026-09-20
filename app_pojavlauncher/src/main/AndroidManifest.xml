@@ -54,6 +54,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".vartox.VXenoMainActivity"
+            android:exported="false"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".LauncherActivity"
             android:label="@string/app_short_name"
             android:windowSoftInputMode="adjustResize"/>

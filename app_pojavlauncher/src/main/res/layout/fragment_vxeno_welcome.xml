@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vxeno_bg">
+
+    <TextView
+        android:id="@+id/vxeno_welcome_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VXENO"
+        android:textColor="@color/vxeno_text_primary"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/vxeno_welcome_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/vxeno_welcome_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Официальный игровой лаунчер"
+        android:textColor="@color/vxeno_text_secondary"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_welcome_title"
+        app:layout_constraintBottom_toTopOf="@+id/vxeno_btn_open_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/vxeno_btn_open_login"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/vxeno_btn_gradient"
+        android:text="Войти в аккаунт"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_welcome_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/vxeno_btn_open_register"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/vxeno_card_server"
+        android:text="Регистрация на сайте"
+        android:textColor="@color/vxeno_text_secondary"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_btn_open_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

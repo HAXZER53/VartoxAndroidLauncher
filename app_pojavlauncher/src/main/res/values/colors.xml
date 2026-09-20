@@ -12,4 +12,15 @@
 
     <color name="primary_text">#FFFFFF</color>
     <color name="secondary_text">#B2B2B2</color>
+    <!-- VXeno / CubixWorld Color Palette -->
+    <color name="vxeno_bg">#181818</color>
+    <color name="vxeno_card_bg">#232323</color>
+    <color name="vxeno_top_bar">#774beb</color>
+    <color name="vxeno_btn_start">#ff377fff</color>
+    <color name="vxeno_btn_end">#ff6718e9</color>
+    <color name="vxeno_online_green">#4CAF50</color>
+    <color name="vxeno_accent_purple">#6c3ee6</color>
+    <color name="vxeno_accent_light">#a17fff</color>
+    <color name="vxeno_text_primary">#ffffff</color>
+    <color name="vxeno_text_secondary">#b2b2b2</color>
 </resources>

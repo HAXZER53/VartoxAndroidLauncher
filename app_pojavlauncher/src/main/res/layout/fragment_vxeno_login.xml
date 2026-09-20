@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vxeno_bg"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/vxeno_login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Авторизация VXeno"
+        android:textColor="@color/vxeno_text_primary"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/vxeno_login_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Введите данные аккаунта для входа на сервер"
+        android:textColor="@color/vxeno_text_secondary"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_login_title"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/vxeno_input_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/vxeno_edittext_bg"
+        android:hint="Логин или Email"
+        android:textColorHint="#70758A"
+        android:textColor="@color/vxeno_text_primary"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_login_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/vxeno_input_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/vxeno_edittext_bg"
+        android:hint="Пароль"
+        android:textColorHint="#70758A"
+        android:textColor="@color/vxeno_text_primary"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_input_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <CheckBox
+        android:id="@+id/vxeno_chk_save_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Запомнить меня"
+        android:checked="true"
+        android:textColor="@color/vxeno_text_secondary"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_input_password"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/vxeno_login_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:textColor="#FF5252"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_chk_save_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/vxeno_btn_submit_login"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/vxeno_btn_gradient"
+        android:text="Войти"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/vxeno_login_status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
